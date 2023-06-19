@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Empleados } from './interface/empleados.interface';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'registro';
+
+  public formVisible: boolean = false;
+  public empleadoEdit!: Empleados;
+
+  showForm(active: boolean){
+    this.formVisible = active;
+  }
 }

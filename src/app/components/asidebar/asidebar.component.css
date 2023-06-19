@@ -1,0 +1,45 @@
+aside{
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background: #aaa;
+}
+
+ul{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    height: 80px;
+    align-items: center;
+    position: relative;
+}
+li{
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.select{
+    background: #000;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.plus{
+    position: absolute;
+    height: 20px;
+    right: 10px;
+    top: calc(50% - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-plus{
+    color: green;
+    font-size: 1.4em;
+    cursor: pointer;
+}

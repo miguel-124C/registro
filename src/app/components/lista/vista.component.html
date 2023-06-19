@@ -1,0 +1,19 @@
+<div class="list" *ngIf="listEmpleados.length > 0">
+
+    <ul>
+        <div *ngFor="let empelado of listEmpleados; let i = index"
+        class="lis">
+            <li>{{ i+1+" - "+empelado.nombre}}</li>
+            <li>{{empelado.apellido}}</li>
+            <li>{{empelado.edad}}</li>
+            <li>{{empelado.salario}}</li>
+            <li class="setDelete">
+                <span (click)="showForm(true,empelado)">
+                    Set
+                </span>
+                <span (click)="deleteEmpleado(empelado.id)"
+                >Delete</span>
+            </li>
+        </div>
+    </ul>
+</div>
