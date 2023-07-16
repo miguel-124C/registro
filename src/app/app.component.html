@@ -1,12 +1,4 @@
-
 <main>
-    <shared-asidebar (onForm)="showForm($event)"></shared-asidebar>
-    
-    <app-vista (onShowForm)="showForm($event)"
-    ></app-vista>
-
-    <app-form class="formulario"
-    *ngIf="formVisible" (onOcultarForm)="showForm($event)">
-        
-    </app-form>
+    <shared-asidebar></shared-asidebar>
+    <router-outlet></router-outlet>
 </main>

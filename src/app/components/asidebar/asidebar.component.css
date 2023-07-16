@@ -4,21 +4,10 @@ aside{
     left: 0;
     display: flex;
     width: 100%;
-    justify-content: center;
-    background: #aaa;
-}
-
-ul{
-    display: flex;
-    justify-content: center;
-    gap: 50px;
     height: 80px;
+    justify-content: center;
     align-items: center;
-    position: relative;
-}
-li{
-    font-size: 1.2em;
-    cursor: pointer;
+    background: #aaa;
 }
 
 .select{

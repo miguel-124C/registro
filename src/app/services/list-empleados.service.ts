@@ -1,48 +1,43 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Empleados } from '../interface/empleados.interface';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListEmpleadosService {
-  
-  saveLocalStorage(){
-    localStorage.setItem('empleados', JSON.stringify(this.listEmpleado))
-  }
-  loadLocalStorage(){
-    if (!localStorage.getItem('empleados'))return;
-   this.listEmpleado = JSON.parse(localStorage.getItem('empleados')!); 
-  }
-
-  constructor() {
-    this.loadLocalStorage();
-  }
-
   public listEmpleado: Empleados[] = [];
   public registerEdit: string = 'Registrar';
 
   public empleadoEdit!: Empleados;
+  
+  constructor(
+    private http: HttpClient
+  ){}
 
-  saveEmpleado(empleado: Empleados){
-    this.listEmpleado.push(empleado);
-    this.saveLocalStorage();
+  getEmpleado(path: string): Observable<Empleados[]>{
+    return this.http.get<Empleados[]>("http://localhost:3000/"+path)
+      .pipe(map(data => data));
   }
-  setEmpleado(empleado: Empleados){
-    console.log(empleado.id);
-    
-    this.listEmpleado.forEach(em => {
-      if (em.id == empleado.id) {
-        em.nombre = empleado.nombre;
-        em.apellido = empleado.apellido;
-        em.edad = empleado.edad;
-        em.salario = empleado.salario;
-        this.saveLocalStorage();
-      }
-    });
+
+  getById(id: string): Observable<Empleados>{
+    return this.http.get<Empleados>("http://localhost:3000/empleados/"+id)
+      .pipe(map(data => data));
   }
-  deleteEmpleado(i: string){
-    this.listEmpleado = this.listEmpleado.filter(em => em.id !== i);    
-    this.saveLocalStorage();
+
+  saveEmpleado(body: Empleados): Observable<boolean>{
+    return this.http.post<boolean>("http://localhost:3000/empleados",body)
+    .pipe(map(data => data));
+  }
+  updateEmpleado(id: string, body: Empleados): Observable<Empleados>{
+    return this.http.put<Empleados>("http://localhost:3000/empleados/"+id, body)
+    .pipe(map(data => data))
+  }
+  deleteEmpleado(id: string): Observable<boolean>{
+    return this.http.delete<boolean>("http://localhost:3000/empleados/"+id)
+    .pipe(map(data => data))
   }
 
 }

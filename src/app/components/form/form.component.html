@@ -1,33 +1,80 @@
 <form
-(ngSubmit)="saveEmpleado()">
-    <span (click)="ocultarShowForm()">
-        X
-    </span>
-    <input 
-    type="text" 
-    placeholder="Nombre"
-    [(ngModel)]="empleado.nombre"
-    name="nombre">
+    (ngSubmit)="validar()"
+    [formGroup]="Form">
+    <div class="contain-form">
+        <div class="titleForm">
+            <i class="fa fa-save"></i>
+            {{titleForm}}
+        </div>
+        <div class="contain-input">
+            <input class="inputsForms"
+            type="text" placeholder="Nombre"
+            formControlName="nombre"name="nombre">
+            <span class="text-danger"
+            *ngIf="Form.controls['nombre'].errors && 
+            Form.controls['nombre'].touched">
+                Campo requerido
+            </span>
+        </div>
 
-    <input 
-    type="text" 
-    placeholder="apellido"
-    [(ngModel)]="empleado.apellido"
-    name="apellido">
+        <div class="contain-input">
+            <input class="inputsForms"
+                type="text" 
+                placeholder="apellido"
+                formControlName="apellido"
+                name="apellido">
 
-    <input 
-    type="number" 
-    placeholder="edad"
-    [(ngModel)]="empleado.edad"
-    name="edad">
-    <input 
-    type="number" 
-    placeholder="salario"
-    [(ngModel)]="empleado.salario"
-    name="salario">
+                <span class="text-danger"
+                *ngIf="Form.controls['apellido'].errors && 
+                Form.controls['apellido'].touched">
+                    Campo requerido
+                </span>
+        </div>
 
-    <input [value]=""
-    type="submit">
+        <div class="contain-input">
+            <input class="inputsForms"
+            type="number" 
+            placeholder="edad"
+            formControlName="edad"
+            name="edad">
+
+            <span class="text-danger"
+                *ngIf="Form.controls['edad'].errors && 
+                Form.controls['edad'].touched">
+                    Campo requerido
+            </span>
+        </div>
+
+        <div class="contain-input">
+            <input class="inputsForms"
+            type="number" 
+            placeholder="salario"
+            formControlName="salario"
+            name="salario">
+
+            <span class="text-danger"
+                *ngIf="Form.controls['salario'].errors && 
+                Form.controls['salario'].touched">
+                    Campo requerido
+            </span>
+        </div>
+
+        <div class="contain-buttons">
+
+            <div class="div-buttons">
+                <input class="buttons"
+                type="submit" [value]="titleButton">
+            </div>
+
+            <div class="div-buttons">
+                <input  class="buttons"
+                routerLink="'lista'"
+            type="button" value="Cancelar">
+            </div>
+        </div>
+
+
+    </div>
 
 </form>
 

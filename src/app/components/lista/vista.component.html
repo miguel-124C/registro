@@ -8,7 +8,8 @@
             <li>{{empelado.edad}}</li>
             <li>{{empelado.salario}}</li>
             <li class="setDelete">
-                <span (click)="showForm(true,empelado)">
+                <span
+                [routerLink]="'/edit/'+empelado.id">
                     Set
                 </span>
                 <span (click)="deleteEmpleado(empelado.id)"

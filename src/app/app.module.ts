@@ -5,7 +5,9 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './components/form/form.component';
 import { VistaComponent } from './components/lista/vista.component';
 import { AsidebarComponent } from './components/asidebar/asidebar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

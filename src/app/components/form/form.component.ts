@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Empleados } from 'src/app/interface/empleados.interface';
 import { ListEmpleadosService } from 'src/app/services/list-empleados.service';
-import { v4 as uuid } from "uuid";
 
 @Component({
   selector: 'app-form',
@@ -9,49 +10,71 @@ import { v4 as uuid } from "uuid";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit{
-  constructor(private listEmpleados: ListEmpleadosService){}
+  public titleForm: string;
+  public titleButton: string;
+  public banderaModifica: boolean = false;
+  public Form!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private listEmpleados: ListEmpleadosService,
+    private route: Router
+  ){
+    this.titleForm = "Agregar empleado";
+    this.titleButton = "Guardar";
+  }
   
   @Output()
   public onOcultarForm: EventEmitter<boolean> = new EventEmitter();
   
   ngOnInit(){
-    if (this.listEmpleados.registerEdit == 'Registrar'){
-      this.llenarEmpleado(this.empleado);
-    }else if (this.listEmpleados.registerEdit == 'Editar'){
-      this.llenarEmpleado(this.listEmpleados.empleadoEdit);
-    }
+    this.cargarEmpleado();
+    this.iniciarForm(this.fb);
   }  
-  
-  public empleado: Empleados = {id: '',nombre: '', apellido: '', edad: 0, salario: 0};
-  llenarEmpleado(empleado: Empleados){
-    this.empleado = {
-      id: empleado.id,
-      nombre: empleado.nombre,
-      apellido: empleado.apellido,
-      edad: empleado.edad,
-      salario: empleado.salario
-    };
+
+  cargarEmpleado(){
+    this.activatedRoute.params.subscribe(({id}) => {
+      if (!id) return;
+      this.listEmpleados.getById(id).subscribe(empleado => {
+        this.titleForm = "Editar empleado";
+        this.titleButton = "Editar";
+        this.banderaModifica = true;
+        this.Form.patchValue(empleado);
+      });
+    });
   }
 
-  limpiarForm(){
-    this.empleado.id = '';
-    this.empleado.nombre = '';
-    this.empleado.apellido = '';
-    this.empleado.edad = 0;
-    this.empleado.salario = 0;
+  iniciarForm(fb: FormBuilder){
+    this.Form =fb.group({
+      id: [0],
+      nombre: ['', [Validators.required]],
+      apellido: ['',Validators.required],
+      edad: [0,Validators.required],
+      salario: [0,Validators.required]
+    });
   }
 
-  ocultarShowForm(){
-    this.onOcultarForm.emit(false);
+  updateEmpleado(){
+    this.listEmpleados.updateEmpleado("1",this.Form.value).subscribe(data => {
+      console.log(data);
+      
+    });
   }
+
   saveEmpleado(){
-    this.ocultarShowForm();
-    if(this.listEmpleados.registerEdit == 'Registrar'){
-      this.empleado.id = uuid();
-      this.listEmpleados.saveEmpleado({...this.empleado});
-      this.limpiarForm();
-    }else if(this.listEmpleados.registerEdit == 'Editar'){
-      this.listEmpleados.setEmpleado(this.empleado);
+    this.listEmpleados.saveEmpleado(this.Form.value).subscribe(data => {
+
+    });
+  }
+
+  validar(){
+    this.Form.markAllAsTouched();
+    if (this.Form.valid) {
+      if (this.banderaModifica) {        
+        this.updateEmpleado();
+      }else this.saveEmpleado();
+      this.route.navigate(['lista']);
     }
   }
   
