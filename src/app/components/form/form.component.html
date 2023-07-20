@@ -1,6 +1,6 @@
 <form
     (ngSubmit)="validar()"
-    [formGroup]="Form">
+    [formGroup]="Form" autocomplete="off">
     <div class="contain-form">
         <div class="titleForm">
             <i class="fa fa-save"></i>
@@ -11,8 +11,7 @@
             type="text" placeholder="Nombre"
             formControlName="nombre"name="nombre">
             <span class="text-danger"
-            *ngIf="Form.controls['nombre'].errors && 
-            Form.controls['nombre'].touched">
+            *ngIf="validaError('nombre')">
                 Campo requerido
             </span>
         </div>
@@ -25,8 +24,7 @@
                 name="apellido">
 
                 <span class="text-danger"
-                *ngIf="Form.controls['apellido'].errors && 
-                Form.controls['apellido'].touched">
+                *ngIf="validaError('apellido')">
                     Campo requerido
                 </span>
         </div>
@@ -39,8 +37,7 @@
             name="edad">
 
             <span class="text-danger"
-                *ngIf="Form.controls['edad'].errors && 
-                Form.controls['edad'].touched">
+                *ngIf="validaError('edad')">
                     Campo requerido
             </span>
         </div>
@@ -53,8 +50,7 @@
             name="salario">
 
             <span class="text-danger"
-                *ngIf="Form.controls['salario'].errors && 
-                Form.controls['salario'].touched">
+                *ngIf="validaError('salario')">
                     Campo requerido
             </span>
         </div>

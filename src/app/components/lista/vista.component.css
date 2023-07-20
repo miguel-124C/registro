@@ -1,13 +1,11 @@
 .list{
-    background: #000000;
+    background: #dbdbdb;
 }
 
 ul{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 10px 0;
 }
 
 .lis{
@@ -15,7 +13,7 @@ ul{
     grid-template-columns: repeat(5,20%);
     height: 70px;
     width: 98%;
-    background: rgb(48, 40, 40);
+    background: rgb(0, 0, 0);
     align-items: center;
 }
 
@@ -28,16 +26,12 @@ li{
     justify-content: space-around;
 }
 .setDelete span{
-    background: #000000;
+    background: #e1e1e1;
     width: 40%;
     padding: 5px 0;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
     transition: all .6s;
-}
-
-.setDelete span:hover{
-    background: #ffffff;
     color: #000000;
 }

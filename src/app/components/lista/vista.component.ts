@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Empleados } from 'src/app/interface/empleados.interface';
 import { ListEmpleadosService } from 'src/app/services/list-empleados.service';
 

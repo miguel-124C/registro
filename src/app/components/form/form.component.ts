@@ -77,5 +77,9 @@ export class FormComponent implements OnInit{
       this.route.navigate(['lista']);
     }
   }
+
+  validaError(name: string): boolean | null{
+    return this.Form.controls[name].errors && this.Form.controls[name].touched;
+  }
   
 }
